@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vídeo + Legenda</title>
+
+  <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .player-container {
+      width: 100%;
+      max-width: 900px;
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+    }
+
+    video.video-js {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="player-container">
+  <video
+    id="videoPlayer"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    data-setup="{}"
+  >
+    <source src="pantao36h.webm" type="video/mp4" />
+
+    <track
+      src="pantao36h.vtt"
+      kind="subtitles"
+      srclang="pt"
+      label="Português"
+      default
+    />
+  </video>
+</div>
+
+<script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+
+<script>
+  const player = videojs('videoPlayer');
+  player.ready(function () {
+    const tracks = player.remoteTextTracks();
+    for (let i = 0; i < tracks.length; i++) {
+      if (tracks[i].kind === 'subtitles') {
+        tracks[i].mode = 'showing';
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
